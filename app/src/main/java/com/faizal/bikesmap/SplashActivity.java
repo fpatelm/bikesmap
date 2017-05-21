@@ -1,9 +1,9 @@
 package com.faizal.bikesmap;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -14,9 +14,11 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
+
+
+
         //do rest call to get contract list and save in Preferences
         new Handler().postDelayed(new Runnable() {
-
                 /*
                  * Showing splash screen with a timer. This will be useful when you
                  * want to show case your app logo / company
