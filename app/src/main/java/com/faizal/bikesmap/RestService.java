@@ -18,6 +18,6 @@ public interface RestService {
     @GET("/vls/v1/contracts")
     Call<List<ContractReply>> getContractList(@QueryMap Map<String, String> options);
     @GET("/vls/v1/stations")
-    Call<StationReply> getStationList(@QueryMap Map<String, String> options);
+    Call<List<StationReply>> getStationList(@QueryMap Map<String, String> options);
 }
 

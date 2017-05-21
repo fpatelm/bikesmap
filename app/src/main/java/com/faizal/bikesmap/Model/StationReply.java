@@ -5,4 +5,30 @@ package com.faizal.bikesmap.Model;
  */
 
 public class StationReply {
+
+    String number;
+    String name;
+    String address;
+    String latitude;
+    String longitude;
+
+    public String getNumber() {
+        return number;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
 }

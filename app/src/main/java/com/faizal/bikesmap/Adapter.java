@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.faizal.bikesmap.Model.BikeInfo;
 
@@ -30,6 +31,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        holder.name.setText(bikeList.get(position).getName());
+        holder.number.setText(bikeList.get(position).getNumber());
+        holder.address.setText(bikeList.get(position).getAddress());
 
     }
 
@@ -39,8 +43,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView name, number, address;
         public MyViewHolder(View itemView) {
             super(itemView);
+            name = (TextView) itemView.findViewById(R.id.name);
+            number = (TextView) itemView.findViewById(R.id.number);
+            address = (TextView) itemView.findViewById(R.id.address);
+
         }
     }
 }

@@ -63,22 +63,25 @@ public class RestApi {
 
     }
 
-    public static void GetStationList(final String contract, final ICallBack oCallBack){
+    public static void GetStationList(final String contract, final ICallBackStation oCallBack, Context context){
         RestService restService = GetRetrofitService();
         HashMap<String, String> queryMap = new HashMap<>();
         queryMap.put("apiKey", "38440d36615d46c21c37e5e4cfb487f6a17c9e3c");
         queryMap.put("contract", contract);
 
-        Call<StationReply> call = restService.getStationList(queryMap);
+        SharedPreferences keyValues = context.getSharedPreferences("bikemap", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor keyValuesEditor = keyValues.edit();
 
-        call.enqueue(new Callback<StationReply>() {
+        Call<List<StationReply>> call = restService.getStationList(queryMap);
+
+        call.enqueue(new Callback<List<StationReply>>() {
             @Override
-            public void onResponse(Call<StationReply> call, Response<StationReply> response) {
-                oCallBack.success();
+            public void onResponse(Call<List<StationReply>> call, Response<List<StationReply>> response) {
+                oCallBack.success(response);
             }
 
             @Override
-            public void onFailure(Call<StationReply> call, Throwable t) {
+            public void onFailure(Call<List<StationReply>> call, Throwable t) {
                 oCallBack.error();
             }
         });
@@ -87,6 +90,12 @@ public class RestApi {
 
     public interface ICallBack{
         void success();
+        void error();
+
+    }
+
+    public interface ICallBackStation{
+        void success(Response<List<StationReply>> response);
         void error();
 
     }
