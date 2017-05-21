@@ -31,3 +31,4 @@
 - Goteborg
 - Ljubljana
 
+![Alt text](/screenImages/splashScreen.png?raw=true "Splash Screen")
