@@ -1,5 +1,7 @@
 package com.faizal.bikesmap;
 
+import android.util.Log;
+
 import com.faizal.bikesmap.Model.ContractReply;
 import com.faizal.bikesmap.Model.StationReply;
 
@@ -31,6 +33,7 @@ public class RestApi {
             @Override
             public void onResponse(Call<ContractReply> call, Response<ContractReply> response) {
                 oCallBack.success();
+                Log.d("onResponse: ",response.toString());
             }
 
             @Override
@@ -48,6 +51,7 @@ public class RestApi {
         queryMap.put("contract", contract);
 
         Call<StationReply> call = restService.getStationList(queryMap);
+
         call.enqueue(new Callback<StationReply>() {
             @Override
             public void onResponse(Call<StationReply> call, Response<StationReply> response) {

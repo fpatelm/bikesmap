@@ -3,4 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="bikeprimary">#13d5bb</color>
+    <color name="bikeprimaryDark">#10aa96</color>
 </resources>
