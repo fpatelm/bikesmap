@@ -25,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
             public void error() {
                 //show a toast to the suer
             }
-        });
+        },getBaseContext());
 
   /*      new Handler().postDelayed(new Runnable() {
                 *//*

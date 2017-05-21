@@ -1,11 +1,16 @@
 package com.faizal.bikesmap;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.faizal.bikesmap.Model.ContractReply;
 import com.faizal.bikesmap.Model.StationReply;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,25 +24,39 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestApi {
 
-    public static void GetContractList(final ICallBack oCallBack){
-
-
+    public static void GetContractList(final ICallBack oCallBack, Context context){
+        Log.d("onResponse: ","GetContractList");
         //Now use restadapter to create an instance of your interface
         RestService restService = GetRetrofitService();
         //populate the request parameters
         HashMap<String, String> queryMap = new HashMap<>();
         queryMap.put("apiKey", "38440d36615d46c21c37e5e4cfb487f6a17c9e3c");
 
-        Call<ContractReply> call = restService.getContractList(queryMap);
-        call.enqueue(new Callback<ContractReply>() {
+        Call<List<ContractReply>> call = restService.getContractList(queryMap);
+
+        final Set<String> setContract = new HashSet<>();
+        SharedPreferences keyValues = context.getSharedPreferences("bikemap", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor keyValuesEditor = keyValues.edit();
+
+
+        call.enqueue(new Callback<List<ContractReply>>() {
             @Override
-            public void onResponse(Call<ContractReply> call, Response<ContractReply> response) {
+            public void onResponse(Call<List<ContractReply>> call, Response<List<ContractReply>> response) {
+
+                if(response.body().size() > 0){
+                    for(ContractReply item : response.body()){
+                        setContract.add(item.getName());
+                    }
+                }
+                keyValuesEditor.putStringSet("ContractList",setContract);
+                keyValuesEditor.commit();
+                Log.d("onResponse: ",response.body().get(0).getName());
                 oCallBack.success();
-                Log.d("onResponse: ",response.toString());
             }
 
             @Override
-            public void onFailure(Call<ContractReply> call, Throwable t) {
+            public void onFailure(Call<List<ContractReply>> call, Throwable t) {
+                Log.d("onResponse: ", t.getLocalizedMessage());
                 oCallBack.error();
             }
         });
@@ -73,12 +92,10 @@ public class RestApi {
     }
 
     private static RestService GetRetrofitService(){
-        Retrofit restAdapter =  new Retrofit.Builder()
+        return new Retrofit.Builder()
                 .baseUrl("https://api.jcdecaux.com")
                 .client(Utils.GetRequestHeader())
                 .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        return restAdapter.create(RestService.class);
+                .build().create(RestService.class);
     }
 }

@@ -3,6 +3,7 @@ package com.faizal.bikesmap;
 import com.faizal.bikesmap.Model.ContractReply;
 import com.faizal.bikesmap.Model.StationReply;
 
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -15,7 +16,7 @@ import retrofit2.http.QueryMap;
 
 public interface RestService {
     @GET("/vls/v1/contracts")
-    Call<ContractReply> getContractList(@QueryMap Map<String, String> options);
+    Call<List<ContractReply>> getContractList(@QueryMap Map<String, String> options);
     @GET("/vls/v1/stations")
     Call<StationReply> getStationList(@QueryMap Map<String, String> options);
 }

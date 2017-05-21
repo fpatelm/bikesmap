@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Bikes Map</string>
-    <string name="submit">Submit</string>
+    <string name="submit">Select City</string>
     <string name="city">City</string>
 </resources>
